@@ -423,7 +423,7 @@ async def on_message(message):
 
     # 초대 링크 함수
     if message.content.startswith("!초대"):
-        embed = DiscordEmbed("https://discordapp.com/oauth2/authorize?client_id=681087205912870963&scope=bot", message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        embed = DiscordEmbed("https://discordapp.com/oauth2/authorize?client_id=717695923735756831&scope=bot", message.author.name, message.author.discriminator, message.author.avatar_url, None)
         await message.channel.send(embed=embed.make_embed())
 
     # 강화 함수
