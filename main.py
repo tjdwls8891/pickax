@@ -376,9 +376,10 @@ class Backup:
     @staticmethod
     def backup_co_list():
         result = ""
-        for value in Co_list.keys():
-            j = Co_list.get(value)
-            result = result + value + ":" + j + "/"
+        for key in Co_list.keys():
+            value = Co_list.get(key)
+            result = result + key + ":" + value + "/"
+        return result
             
     @staticmethod
     def backup_at_info():
@@ -386,20 +387,23 @@ class Backup:
         for key in At_info.keys():
             value = At_info.get(key)
             result = result + key + ":" + value + "/"
-    
+        return result
+
     @staticmethod
     def backup_en_info():
         result = ""
         for key in En_info.keys():
             value = En_info.get(key)
-            result = result + key + ":" + value + "/"
-    
+            result = result + str(key) + ":" + str(value) + "/"
+        return result
+
     @staticmethod
     def backup_lv_info():
         result = ""
         for key in Lv_info.keys():
             value = Lv_info.get(key)
-            result = result + key + ":" + value + "/"
+            result = result + str(key) + ":" + str(value) + "/"
+        return result
 
 
 # 봇이 준비됐을 때 호출되는 이벤트
@@ -474,17 +478,17 @@ async def on_message(message):
         user = message.guild.get_member(message.author.id)
         embed = DiscordEmbed("곡괭이 디엠 오픈!", message.author.name, message.author.discriminator, message.author.avatar_url, None)
         await user.send(embed=embed.make_embed())
-        
+
     # 백업 함수
     access_jayden_id = os.environ["JAYDEN_ID"]
-    if message.content.startswith("백업") and message.author.id == access_jayden_id:
-        embed = DiscordEmbed(Backup.backup_co_list(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+    if message.content.startswith("!백업") and message.author.id == access_jayden_id:
+        embed = DiscordEmbed(Backup.backup_co_list(), message.author.name, message.author.discriminator, message.author.avatar_url, "단어 리스트")
         await message.channel.send(embed=embed.make_embed())
-        embed = DiscordEmbed(Backup.backup_at_info(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        embed = DiscordEmbed(Backup.backup_at_info(), message.author.name, message.author.discriminator, message.author.avatar_url, "출석 정보")
         await message.channel.send(embed=embed.make_embed())
-        embed = DiscordEmbed(Backup.backup_en_info(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        embed = DiscordEmbed(Backup.backup_en_info(), message.author.name, message.author.discriminator, message.author.avatar_url, "강화 정보")
         await message.channel.send(embed=embed.make_embed())
-        embed = DiscordEmbed(Backup.backup_lv_info(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        embed = DiscordEmbed(Backup.backup_lv_info(), message.author.name, message.author.discriminator, message.author.avatar_url, "레벨 정보")
         await message.channel.send(embed=embed.make_embed())
 
 
