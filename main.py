@@ -371,13 +371,44 @@ class DiscordEmbed:
         return embed
 
 
+# 정보 백업 클래스
+class Backup:
+    @staticmethod
+    def backup_co_list():
+        result = ""
+        for value in Co_list.keys():
+            j = Co_list.get(value)
+            result = result + value + ":" + j + "/"
+            
+    @staticmethod
+    def backup_at_info():
+        result = ""
+        for key in At_info.keys():
+            value = At_info.get(key)
+            result = result + key + ":" + value + "/"
+    
+    @staticmethod
+    def backup_en_info():
+        result = ""
+        for key in En_info.keys():
+            value = En_info.get(key)
+            result = result + key + ":" + value + "/"
+    
+    @staticmethod
+    def backup_lv_info():
+        result = ""
+        for key in Lv_info.keys():
+            value = Lv_info.get(key)
+            result = result + key + ":" + value + "/"
+
+
 # 봇이 준비됐을 때 호출되는 이벤트
 @client.event
 async def on_ready():
     # 봇 준비 시 메시지
     print("bot ready.\nBot code : pickax")
     # 온라인 상태와 게임 메시지 설정
-    game = discord.Game("곡괭이 베타 테스팅")
+    game = discord.Game("땅굴 파놓고 뿌듯해")
     await client.change_presence(status=discord.Status.online, activity=game)
 
 
@@ -423,7 +454,7 @@ async def on_message(message):
 
     # 초대 링크 함수
     if message.content.startswith("!초대"):
-        embed = DiscordEmbed("https://discordapp.com/oauth2/authorize?client_id=717695923735756831&scope=bot", message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        embed = DiscordEmbed("https://discordapp.com/oauth2/authorize?client_id=681087205912870963&scope=bot", message.author.name, message.author.discriminator, message.author.avatar_url, None)
         await message.channel.send(embed=embed.make_embed())
 
     # 강화 함수
@@ -443,6 +474,18 @@ async def on_message(message):
         user = message.guild.get_member(message.author.id)
         embed = DiscordEmbed("곡괭이 디엠 오픈!", message.author.name, message.author.discriminator, message.author.avatar_url, None)
         await user.send(embed=embed.make_embed())
+        
+    # 백업 함수
+    access_jayden_id = os.environ["JAYDEN_ID"]
+    if message.content.startswith("백업") and message.author.id == access_jayden_id:
+        embed = DiscordEmbed(Backup.backup_co_list(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        await message.channel.send(embed=embed.make_embed())
+        embed = DiscordEmbed(Backup.backup_at_info(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        await message.channel.send(embed=embed.make_embed())
+        embed = DiscordEmbed(Backup.backup_en_info(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        await message.channel.send(embed=embed.make_embed())
+        embed = DiscordEmbed(Backup.backup_lv_info(), message.author.name, message.author.discriminator, message.author.avatar_url, None)
+        await message.channel.send(embed=embed.make_embed())
 
 
 # 봇 토큰
