@@ -480,8 +480,7 @@ async def on_message(message):
         await user.send(embed=embed.make_embed())
 
     # 백업 함수
-    access_jayden_id = os.environ["JAYDEN_ID"]
-    if message.content.startswith("!백업") and message.author.id == access_jayden_id:
+    if message.content.startswith("!백업") and message.author.id == 545506402383429642:
         embed = DiscordEmbed(Backup.backup_co_list(), message.author.name, message.author.discriminator, message.author.avatar_url, "단어 리스트")
         await message.channel.send(embed=embed.make_embed())
         embed = DiscordEmbed(Backup.backup_at_info(), message.author.name, message.author.discriminator, message.author.avatar_url, "출석 정보")
